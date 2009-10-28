@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Ruby API for XBEL based on Nokogiri and Watchr.}
     gem.description = %Q{}
     gem.email = "florian.assmann@email.de"
-    gem.homepage = "http://github.com/boof/xbel"
+    gem.homepage = "http://xbel.monkey-patch.me"
     gem.authors = ["Florian Aßmann"]
     gem.add_development_dependency "shoulda", ">= 0"
     gem.add_dependency 'watchr', '>= 0'
