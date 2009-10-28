@@ -10,7 +10,7 @@ class TestXBEL < Test::Unit::TestCase
       assert_equal [1, 0], xbel.version
     end
     should "have title 'Some of David's Bookmarks'" do
-      assert_equal %Q"Some of David's Bookmarks", xbel.title
+      assert_equal %Q{Some of David's Bookmarks}, xbel.title
     end
     should "return all root folders" do
       results = xbel.root.folders
@@ -21,7 +21,9 @@ class TestXBEL < Test::Unit::TestCase
     should "return all bookmarks of 'HTTP Clients'" do
       results = xbel.root.folders.first.bookmarks
       results = results.map { |entry| entry.title }
-      expect = ['Netscape', 'Opera', 'Microsoft Internet Explorer', 'Lynx', 'Amaya']
+      expect = [
+          'Netscape', 'Opera', 'Microsoft Internet Explorer', 'Lynx', 'Amaya'
+      ]
       assert_equal expect, results
     end
     should "return aliased bookmark" do
