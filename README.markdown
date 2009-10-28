@@ -7,6 +7,16 @@ development.
 
     gem install xbel
 
+## Use
+
+    require 'rubygems'
+    require 'xbel'
+
+    xbel = XBEL.parse File.read('complex.xbel')
+
+    with_aliases = true # TODO...
+    xbel.root.bookmarks(with_aliases).each { |bm| system 'open', bm.href }
+
 ### Note on Patches/Pull Requests
  
 1. Fork the project.

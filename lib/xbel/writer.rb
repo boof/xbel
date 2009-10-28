@@ -1,4 +1,4 @@
-class XBEL::Writer
+class XBEL::Writer #:nodoc:
   DOCTYPE = '<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML" "http://www.python.org/topics/xml/dtds/xbel-1.0.dtd">'
 
   attr_reader :document, :lockfile_path, :path

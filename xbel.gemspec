@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{xbel}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Florian A\303\237mann"]
@@ -14,20 +14,29 @@ Gem::Specification.new do |s|
   s.email = %q{florian.assmann@email.de}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.markdown"
   ]
   s.files = [
     ".document",
      ".gitignore",
+     ".watchr",
      "LICENSE",
-     "README.rdoc",
+     "README.markdown",
      "Rakefile",
      "VERSION",
+     "lib/nokogiri/decorators/xbel.rb",
+     "lib/nokogiri/decorators/xbel/alias.rb",
+     "lib/nokogiri/decorators/xbel/bookmark.rb",
+     "lib/nokogiri/decorators/xbel/folder.rb",
+     "lib/nokogiri/decorators/xbel/seperator.rb",
      "lib/xbel.rb",
+     "lib/xbel/writer.rb",
+     "test/complex.xbel",
      "test/helper.rb",
-     "test/test_xbel.rb"
+     "test/test_xbel.rb",
+     "xbel.gemspec"
   ]
-  s.homepage = %q{http://github.com/boof/xbel}
+  s.homepage = %q{http://xbel.monkey-patch.me/}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
