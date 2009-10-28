@@ -5,12 +5,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "xbel"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{Ruby API for XBEL based on Nokogiri and Watchr.}
+    gem.summary = %Q{Ruby API for XBEL based on Nokogiri and Watchr.}
+    gem.description = %Q{}
     gem.email = "florian.assmann@email.de"
     gem.homepage = "http://github.com/boof/xbel"
     gem.authors = ["Florian Aßmann"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_dependency 'watchr', '>= 0'
+    gem.add_dependency 'nokogiri', '>= 0'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
