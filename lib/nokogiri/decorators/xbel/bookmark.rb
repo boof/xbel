@@ -3,26 +3,26 @@ module Nokogiri::Decorators::XBEL
     include Entry
 
     def modified
-      if value = attribute('modified') then Date.parse value.content end
+      if value = self['modified'] then Date.parse value end
     end
     def modified=(value)
-      set_attribute 'modified', value.to_s
+      self['modified'] = value.to_s
     end
     def visited
-      if value = attribute('visited') then Date.parse value.content end
+      if value = self['visited'] then Date.parse value end
     end
     def visited=(value)
-      set_attribute 'visited', value.to_s
+      self['visited'] = value.to_s
     end
     def visit
       self.visited = Date.today
     end
     def href
-      if value = attribute('href') then value.content end
+      if value = self['href'] then value end
     end
     def href=(value)
       self.modified = Date.today
-      set_attribute 'href', value
+      self['href'] = value
     end
     def bookmark?
       true

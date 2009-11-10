@@ -31,16 +31,16 @@ module Nokogiri::Decorators::XBEL
     end
 
     # Builds a bookmark with given attributes and add it.
-    def build_bookmark(attributes = {}, &block)
+    def build_bookmark(title, attributes = {}, &block)
       node = Nokogiri::XML::Node.new('bookmark', document)
-      assign_to node, attributes
+      assign_to node, attributes.merge('title' => title)
 
       add_child node
     end
     # Builds a folder with given attributes and add it.
-    def build_folder(attributes = {}, &block)
+    def build_folder(title, attributes = {}, &block)
       node = Nokogiri::XML::Node.new('folder', document)
-      assign_to node, attributes
+      assign_to node, attributes.merge('title' => title)
 
       add_child node
     end

@@ -5,15 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "xbel"
-    gem.summary = %Q{Ruby API for XBEL based on Nokogiri and Watchr.}
+    gem.summary = %Q{Ruby API for XBEL based on Nokogiri.}
     gem.description = %Q{}
     gem.email = "florian.assmann@email.de"
     gem.homepage = "http://xbel.monkey-patch.me"
     gem.authors = ["Florian Aßmann"]
-    gem.add_development_dependency "shoulda", ">= 0"
-    gem.add_dependency 'watchr', '>= 0'
+    gem.add_development_dependency "riot", ">= 0"
     gem.add_dependency 'nokogiri', '>= 0'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
@@ -24,7 +22,7 @@ require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+  test.verbose = false
 end
 
 begin
@@ -39,8 +37,6 @@ rescue LoadError
     abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
-
-task :test => :check_dependencies
 
 task :default => :test
 
