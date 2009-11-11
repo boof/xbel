@@ -6,19 +6,19 @@ module Nokogiri::Decorators::XBEL
       node.initialize_decorator
     end
 
-    # Returns an instance of NodeSet with all valid children for this folder.
+    # Returns an instance of NodeSet with possible children in this folder.
     def entries
       xpath './alias | ./bookmark | ./folder | ./separator'
     end
-    # Returns an instance of NodeSet with all aliases for this folder.
+    # Returns an instance of NodeSet with all aliases in this folder.
     def aliases
       xpath './alias'
     end
-    # Returns an instance of NodeSet with all bookmarks for this folder.
+    # Returns an instance of NodeSet with all bookmarks in this folder.
     def bookmarks
       xpath './bookmark'
     end
-    # Returns an instance of NodeSet with all folders for this folder.
+    # Returns an instance of NodeSet with all folders in this folder.
     def folders
       xpath './folder'
     end
