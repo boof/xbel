@@ -56,8 +56,8 @@ module Nokogiri::Decorators::XBEL
 
       add_child node
     end
-    # Builds a seperator with given attributes and add it.
-    def add_seperator
+    # Builds a saperator with given attributes and add it.
+    def add_separator
       add_child Nokogiri::XML::Node.new('separator', document)
     end
 
