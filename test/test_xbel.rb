@@ -23,65 +23,101 @@ end
 context 'XBEL' do
 
   setup do
-    path = File.join "#{ File.dirname __FILE__ }", 'wikipedia.xbel'
-    @xbel = XBEL.parse File.read(path)
+    root = Pathname.new File.dirname(__FILE__)
+    XBEL.open root.join('wikipedia.xbel')
   end
 
-  asserts('version') { @xbel.version }.equals [1, 0]
+  asserts('version') { topic.version }.equals [1, 0]
 
-  asserts("title") { @xbel.title }.equals %q"Lesezeichen!"
-  should('delegate title to root') { @xbel.root.title == @xbel.title }
+  asserts('title') { topic.title }.equals 'Lesezeichen!'
+  should('delegate title accessor to root') do
+    topic.title = 'Bookmarks!'
+
+    topic.title == topic.root.title and
+    topic.title == 'Bookmarks!'
+  end
 
   context 'Alias' do
-    setup { @alias = @xbel.root.aliases.first }
-    should('be an alias') { @alias.alias? }
+    setup { topic.root.aliases.first }
+    should('be an alias') { topic.alias? }
+
+    should('have a reference') do
+      topic.ref and
+      topic.ref == topic.reference
+    end
   end
 
   context 'Folder' do
-    setup { @folder = @xbel.root.folders.first }
+    setup { topic[:f0] }
+    should('be a folder') { topic.folder? }
 
-    asserts('title') { @folder.title }.equals 'Wiki'
-    asserts('entries') { @folder.entries }.kind_of Nokogiri::XML::NodeSet
-    asserts('bookmarks') { @folder.bookmarks }.kind_of Nokogiri::XML::NodeSet
-    asserts('aliases') { @folder.bookmarks }.kind_of Nokogiri::XML::NodeSet
-    should('be a folder') { @folder.folder? }
+    asserts('title') { topic.title }.equals 'Wiki'
+    # TODO: check type with <name>?
+    asserts('entries') { topic.entries }.kind_of Nokogiri::XML::NodeSet
+    asserts('bookmarks') { topic.bookmarks }.kind_of Nokogiri::XML::NodeSet
+    asserts('aliases') { topic.aliases }.kind_of Nokogiri::XML::NodeSet
+    asserts('folders') { topic.folders }.kind_of Nokogiri::XML::NodeSet
 
     context 'Bookmark' do
-      setup { @bookmark = @folder.bookmarks.first }
+      setup { topic.bookmarks.first }
+      should('be a bookmark') { topic.bookmark? }
 
-      asserts('modified attribute') { @bookmark.modified }.kind_of Date
-      asserts('visited') { @bookmark.visited }.kind_of Date
-      asserts('visit') { @bookmark.visit; @bookmark.visited }.equals Date.today
-      should('be a bookmark') { @bookmark.bookmark? }
+      asserts('modified') { topic.modified }.kind_of Date
+
+      asserts('visited') { topic.visited }.kind_of Date
+      asserts('visit') do
+        topic.visit
+        topic.visited
+      end.equals Date.today
     end
     context 'new Bookmark' do
       setup do
-        @bookmark = @folder.build_bookmark 'Bookmark',
-            :href => 'http://www.github.com/boof/xbel', :description => 'desc'
+        topic.build_bookmark "boof's xbel", 'http://www.github.com/boof/xbel',
+            :description => 'Ruby API for XBEL based on Nokogiri.'
       end
+      should('be a bookmark') { topic.bookmark? }
 
-      asserts('added attribute') { @bookmark.added }.equals Date.today
-      asserts('title attribute') { @bookmark.title }.equals 'Bookmark'
-      asserts('href attribute') { @bookmark.href }.
+      asserts('added') { topic.added }.equals Date.today
+      asserts('title') { topic.title }.equals 'boof\'s xbel'
+      asserts('href') { topic.href }.
           equals 'http://www.github.com/boof/xbel'
-      asserts('description attribute') { @bookmark.description }.
-          equals 'desc'
+      asserts('description') { topic.description }.
+          equals 'Ruby API for XBEL based on Nokogiri.'
     end
 
     context 'new Folder' do
-      setup do
-        @subfolder = @folder.build_folder 'subfolder',
-            :id => 'id-2', :desc => 'description'
-      end
-      asserts('added attribute') { @subfolder.added }.equals Date.today
-      asserts('title attribute') { @subfolder.title }.equals 'subfolder'
-      asserts('id attribute') { @subfolder.id }.equals 'id-2'
-      asserts('desc attribute') { @subfolder.desc }.equals 'description'
+      setup { topic.build_folder 'sub', :id => 'id-2', :desc => 'desc' }
+      should('be a folder') { topic.folder? }
+
+      asserts('added') { topic.added }.equals Date.today
+      asserts('title') { topic.title }.equals 'sub'
+      asserts('id') { topic.id }.equals 'id-2'
+      asserts('desc') { topic.desc }.equals 'desc'
     end
 
     context 'new Alias' do
-      setup { @alias = @folder.build_alias @folder }
-      should('reference its folder') { @alias.entry == @folder }
+      setup { topic.build_alias topic }
+      should('be an alias') { topic.alias? }
+
+      should('reference its folder') { topic.entry == topic.parent }
+    end
+
+  end
+
+  context 'Bookmark b0' do
+    setup { topic[:b0] }
+    should('be a bookmark') { topic.bookmark? }
+    
+    context 'Info' do
+      setup { topic.info }
+      should('be a hash') { Hash === topic }
+
+      context 'metadata for xbel' do
+        setup { topic[:xbel] if topic }
+        should('be a node') { Nokogiri::XML::Node === topic }
+
+        should('be have an alias') { not topic.at('./alias').nil? }
+      end
     end
 
   end

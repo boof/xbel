@@ -11,11 +11,19 @@ class XBEL < Nokogiri::XML::Document
     parse %Q'<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML" "http://www.python.org/topics/xml/dtds/xbel-1.0.dtd"><xbel version="%i.%i"></xbel>' % [major, minor]
   end
 
+  def self.open(path)
+    parse File.read(path.to_s)
+  end
+
   # Use <tt>XBEL.parse(string)</tt> create an instance.
   def initialize(*args)
     super
     decorators(Nokogiri::XML::Node) << Nokogiri::Decorators::XBEL
     decorate!
+  end
+
+  def [](id)
+    root.at("//*[@id='#{ id }']")
   end
 
   # Returns an array of version numbers.

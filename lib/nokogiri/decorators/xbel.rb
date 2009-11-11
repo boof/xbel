@@ -1,9 +1,9 @@
 module Nokogiri::Decorators::XBEL
 
-  autoload :Folder, "#{ File.dirname __FILE__ }/xbel/folder.rb"
-  autoload :Seperator, "#{ File.dirname __FILE__ }/xbel/folder.rb"
   autoload :Bookmark, "#{ File.dirname __FILE__ }/xbel/bookmark.rb"
+  autoload :Folder, "#{ File.dirname __FILE__ }/xbel/folder.rb"
   autoload :Alias, "#{ File.dirname __FILE__ }/xbel/alias.rb"
+  autoload :Seperator, "#{ File.dirname __FILE__ }/xbel/folder.rb"
 
   def self.extended(base)
     case base.name
@@ -13,16 +13,28 @@ module Nokogiri::Decorators::XBEL
       base.extend Bookmark
     when 'folder'
       base.extend Folder
-    when 'separator'
-      base.extend Separator
     when 'alias'
       base.extend Alias
+    when 'separator'
+      base.extend Separator
     when 'xbel'
       base.extend Folder
     end
   end
 
   module Entry
+
+    def initialize_decorator
+      @info = Hash.new do |info, owner|
+        if String === owner
+          info[owner] = at "./info/metadata[@owner='#{owner}']"
+        else
+          info[owner.to_s]
+        end
+      end
+    end
+    attr_reader :info
+
     def desc
       if node = at('./desc') then node.content end
     end

@@ -2,9 +2,13 @@ module Nokogiri::Decorators::XBEL
   module Folder
     include Entry
 
+    def self.extended(node)
+      node.initialize_decorator
+    end
+
     # Returns an instance of NodeSet with all valid children for this folder.
     def entries
-      xpath './alias', './bookmark', './folder', './separator'
+      xpath './alias | ./bookmark | ./folder | ./separator'
     end
     # Returns an instance of NodeSet with all aliases for this folder.
     def aliases
@@ -31,16 +35,17 @@ module Nokogiri::Decorators::XBEL
     end
 
     # Builds a bookmark with given attributes and add it.
-    def build_bookmark(title, attributes = {}, &block)
+    def build_bookmark(title, href, attributes = {}, &block)
       node = Nokogiri::XML::Node.new('bookmark', document)
-      assign_to node, attributes.merge('title' => title)
+      assign_to node, attributes.merge('title' => title, 'href' => href),
+          &block
 
       add_child node
     end
     # Builds a folder with given attributes and add it.
     def build_folder(title, attributes = {}, &block)
       node = Nokogiri::XML::Node.new('folder', document)
-      assign_to node, attributes.merge('title' => title)
+      assign_to node, attributes.merge('title' => title), &block
 
       add_child node
     end

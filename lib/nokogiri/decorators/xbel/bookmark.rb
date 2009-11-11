@@ -2,6 +2,10 @@ module Nokogiri::Decorators::XBEL
   module Bookmark
     include Entry
 
+    def self.extended(node)
+      node.initialize_decorator
+    end
+
     def modified
       if value = self['modified'] then Date.parse value end
     end

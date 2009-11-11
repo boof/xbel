@@ -1,23 +1,34 @@
 # xbel
 
-Introduces XBEL decorations for Nokogiri. Write support is still in
-development.
+Introduces XBEL decorations for Nokogiri.
 
 ## Installation
 
     gem install xbel
 
-## Use
+## Using
 
     require 'rubygems'
     require 'xbel'
 
-    xbel = XBEL.parse File.read('complex.xbel')
+### Reading
 
-    with_aliases = true # TODO...
-    xbel.root.bookmarks(with_aliases).each { |bm| system 'open', bm.href }
+    XBEL.open('test/wikipedia.xbel')[:f0].bookmarks.
+    map do |bookmark|
+      link_to bookmark.title, bookmark.href
+    end
 
-### Note on Patches/Pull Requests
+### Writing
+
+    xbel = XBEL.new
+    xbel.build_folder 'XBEL' do |folder|
+      folder.build_bookmark "boof's xbel", 'http://github.com/boof/xbel'
+    end
+    File.open('my.xbel', 'w') { |file| file << xbel }
+
+_Note: You can use all Nokogiri::XML::Node methods._
+
+## Patches/Pull Requests:
  
 1. Fork the project.
 2. Make your feature addition or bug fix.
