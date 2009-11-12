@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{xbel}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Florian A\303\237mann"]
-  s.date = %q{2009-11-11}
+  s.date = %q{2009-11-12}
   s.description = %q{}
   s.email = %q{florian.assmann@email.de}
   s.extra_rdoc_files = [
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
      "lib/nokogiri/decorators/xbel/alias.rb",
      "lib/nokogiri/decorators/xbel/bookmark.rb",
      "lib/nokogiri/decorators/xbel/folder.rb",
-     "lib/nokogiri/decorators/xbel/seperator.rb",
+     "lib/nokogiri/decorators/xbel/separator.rb",
      "lib/xbel.rb",
      "test/helper.rb",
      "test/test_xbel.rb",
