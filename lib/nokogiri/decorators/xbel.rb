@@ -3,7 +3,7 @@ module Nokogiri::Decorators::XBEL
   autoload :Bookmark, "#{ File.dirname __FILE__ }/xbel/bookmark.rb"
   autoload :Folder, "#{ File.dirname __FILE__ }/xbel/folder.rb"
   autoload :Alias, "#{ File.dirname __FILE__ }/xbel/alias.rb"
-  autoload :Seperator, "#{ File.dirname __FILE__ }/xbel/folder.rb"
+  autoload :Separator, "#{ File.dirname __FILE__ }/xbel/separator.rb"
 
   def self.extended(base)
     case base.name
@@ -35,9 +35,11 @@ module Nokogiri::Decorators::XBEL
     end
     attr_reader :info
 
+    # Returns description of node.
     def desc
       if node = at('./desc') then node.content end
     end
+    # Sets description of node.
     def desc=(value)
       node = at './desc'
       node ||= add_child Nokogiri::XML::Node.new('desc', document)
@@ -47,9 +49,11 @@ module Nokogiri::Decorators::XBEL
     alias_method :description, :desc
     alias_method :description=, :desc=
 
+    # Returns title fo node.
     def title
       if node = at('./title') then node.content end
     end
+    # Sets title for node.
     def title=(value)
       node = at './title'
       node ||= add_child Nokogiri::XML::Node.new('title', document)
@@ -58,22 +62,29 @@ module Nokogiri::Decorators::XBEL
     end
     alias_method :to_s, :title
 
+    # Returns id for node.
     def id
       if id = attribute('id') then id.content end
     end
+    # Sets id for node.
     def id=(value)
       set_attribute 'id', value.to_s
     end
 
+    # Returns addition date.
     def added
       if value = attribute('added') then Date.parse value.content end
     end
+    # Sets addition date.
     def added=(value)
       set_attribute 'added', value.to_s
     end
 
+    # Returns nil.
     def alias?; end
+    # Returns nil.
     def bookmark?; end
+    # Returns nil.
     def folder?; end
   end
 

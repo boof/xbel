@@ -52,11 +52,18 @@ context 'XBEL' do
     should('be a folder') { topic.folder? }
 
     asserts('title') { topic.title }.equals 'Wiki'
-    # TODO: check type with <name>?
-    asserts('entries') { topic.entries }.kind_of Nokogiri::XML::NodeSet
-    asserts('bookmarks') { topic.bookmarks }.kind_of Nokogiri::XML::NodeSet
-    asserts('aliases') { topic.aliases }.kind_of Nokogiri::XML::NodeSet
-    asserts('folders') { topic.folders }.kind_of Nokogiri::XML::NodeSet
+    asserts('entries names') do
+      topic.entries.map { |e| e.name }.uniq.sort
+    end.equals %w[ alias bookmark folder separator ]
+    should('return bookmarks') do
+      not topic.bookmarks.any? { |b| b.name != 'bookmark' }
+    end
+    should('return aliases') do
+      not topic.aliases.any? { |b| b.name != 'alias' }
+    end
+    should('return folders') do
+      not topic.folders.any? { |b| b.name != 'folder' }
+    end
 
     context 'Bookmark' do
       setup { topic.bookmarks.first }
@@ -100,6 +107,15 @@ context 'XBEL' do
       should('be an alias') { topic.alias? }
 
       should('reference its folder') { topic.entry == topic.parent }
+      should('set reference by entry') do
+        topic.entry = topic.document[:b1]
+        topic.ref == 'b1'
+      end
+    end
+
+    context 'Separator' do
+      setup { topic.entries.find { |e| e.name == 'separator' } }
+      asserts('to_s') { topic.to_s }.equals ' '
     end
 
   end

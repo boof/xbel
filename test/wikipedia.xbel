@@ -16,9 +16,12 @@ PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML"
             </info>
             <title>Wikimedia Foundation</title>
         </bookmark>
+        <alias ref="f0-1" />
+        <separator />
         <bookmark href="http://de.wikipedia.org/" id="b1" added="2007-11-11" modified="2007-11-14" visited="2007-12-27">
             <title>Wikipedia</title>
         </bookmark>
+        <folder id="f0-1"></folder>
     </folder>
     <separator />
     <alias ref="b1" />
