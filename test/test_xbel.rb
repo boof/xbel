@@ -86,6 +86,7 @@ context 'XBEL' do
 
       asserts('added') { topic.added }.equals Date.today
       asserts('title') { topic.title }.equals 'boof\'s xbel'
+      asserts('next id') { topic.id }.equals 'f0.2'
       asserts('href') { topic.href }.
           equals 'http://www.github.com/boof/xbel'
       asserts('description') { topic.description }.
@@ -93,12 +94,12 @@ context 'XBEL' do
     end
 
     context 'new Folder' do
-      setup { topic.build_folder 'sub', :id => 'id-2', :desc => 'desc' }
+      setup { topic.build_folder 'sub', :desc => 'desc' }
       should('be a folder') { topic.folder? }
 
       asserts('added') { topic.added }.equals Date.today
       asserts('title') { topic.title }.equals 'sub'
-      asserts('id') { topic.id }.equals 'id-2'
+      asserts('next id') { topic.id }.equals 'f0.2'
       asserts('desc') { topic.desc }.equals 'desc'
     end
 

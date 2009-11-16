@@ -34,27 +34,31 @@ module Nokogiri::Decorators::XBEL
       super
     end
 
+    def build(type, attributes = {}, &block)
+      child = Nokogiri::XML::Node.new(type.to_s, document)
+      assign_to child, attributes, &block
+
+      add_child child
+    end
+
     # Builds a bookmark with given attributes and add it.
     def build_bookmark(title, href, attributes = {}, &block)
-      node = Nokogiri::XML::Node.new('bookmark', document)
-      assign_to node, attributes.merge('title' => title, 'href' => href),
+      build :bookmark,
+          attributes.merge(:title => title, :href => href),
           &block
-
-      add_child node
     end
     # Builds a folder with given attributes and add it.
     def build_folder(title, attributes = {}, &block)
-      node = Nokogiri::XML::Node.new('folder', document)
-      assign_to node, attributes.merge('title' => title), &block
-
-      add_child node
+      build :folder,
+          attributes.merge(:title => title),
+          &block
     end
     # Builds an alias with given attributes and add it.
     def build_alias(ref)
-      node = Nokogiri::XML::Node.new('alias', document)
-      node.ref = (Entry === ref) ? ref.id : ref.to_s
+      child = Nokogiri::XML::Node.new('alias', document)
+      child.ref = (Entry === ref) ? ref.id : ref.to_s
 
-      add_child node
+      add_child child
     end
     # Builds a saperator with given attributes and add it.
     def add_separator
@@ -64,9 +68,16 @@ module Nokogiri::Decorators::XBEL
     protected
 
       def assign_to(node, attributes) #:nodoc:
+        attributes[:id] ||= "#{ id }." << xpath('./bookmark | ./folder').
+            inject(0) { |next_id, child|
+                succ_num_id = child.id[/(\d+)$/, 1].to_i.succ
+                succ_num_id > next_id ? succ_num_id : next_id
+            }.to_s
+
         attributes.each do |key, value|
           node.send "#{ key }=", value
         end
+
         yield node if block_given?
       end
 
