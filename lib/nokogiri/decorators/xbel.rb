@@ -35,6 +35,10 @@ module Nokogiri::Decorators::XBEL
     end
     attr_reader :info
 
+    def attributes=(attributes)
+      attributes.each { |key, value| send "#{ key }=", value }
+    end
+
     # Returns description of node.
     def desc
       if node = at('./desc') then node.content end
@@ -77,7 +81,12 @@ module Nokogiri::Decorators::XBEL
     end
     # Sets addition date.
     def added=(value)
-      set_attribute 'added', value.to_s
+      set_attribute 'added', case value
+      when Time; value.strftime '%Y-%m-%d'
+      when String; value
+      else
+        raise ArgumentError
+      end
     end
 
     # Returns nil.
