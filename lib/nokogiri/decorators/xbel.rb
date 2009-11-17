@@ -88,13 +88,13 @@ module Nokogiri::Decorators::XBEL
         raise ArgumentError
       end
     end
-
-    # Returns nil.
-    def alias?; end
-    # Returns nil.
-    def bookmark?; end
-    # Returns nil.
-    def folder?; end
   end
+
+  # Returns nil.
+  def alias?; end
+  # Returns nil.
+  def bookmark?; end
+  # Returns nil.
+  def folder?; end
 
 end

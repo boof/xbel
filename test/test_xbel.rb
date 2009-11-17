@@ -146,11 +146,14 @@ context 'XBEL' do
       context 'Separator' do
         setup { topic.entries.find { |e| e.name == 'separator' } }
         asserts('to_s') { topic.to_s }.equals ' '
+        should('not be a bookmark') { !topic.bookmark? }
+        should('not be a alias') { !topic.alias? }
+        should('not be a folder') { !topic.folder? }
       end
 
     end
 
-    context 'Bookmark b0' do
+    context 'Bookmark test_1_1' do
       setup { topic[:test_1_1] }
       should('be a bookmark') { topic.bookmark? }
 

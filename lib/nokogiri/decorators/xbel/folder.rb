@@ -65,15 +65,15 @@ module Nokogiri::Decorators::XBEL
       add_child Nokogiri::XML::Node.new('separator', document)
     end
 
-    protected
+    def generate_id
+      "#{ id }#{ document.div_id_er }" << xpath('./bookmark | ./folder').
+          inject(0) { |next_id, child|
+              succ_num_id = child.id[/(\d+)$/, 1].to_i.succ
+              succ_num_id > next_id ? succ_num_id : next_id
+          }.to_s
+    end
 
-      def generate_id
-        "#{ id }#{ document.div_id_er }" << xpath('./bookmark | ./folder').
-            inject(0) { |next_id, child|
-                succ_num_id = child.id[/(\d+)$/, 1].to_i.succ
-                succ_num_id > next_id ? succ_num_id : next_id
-            }.to_s
-      end
+    protected
 
       def add_child(node)
         if Entry === node

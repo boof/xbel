@@ -2,6 +2,11 @@
 
 Introduces XBEL decorations for Nokogiri.
 
+## Features
+
+ * generates IDs for bookmarks and folders
+ * decorates a Nokogiri::XML::Node, all Nokogiri methods are available
+
 ## Installation
 
     gem install xbel
@@ -13,7 +18,7 @@ Introduces XBEL decorations for Nokogiri.
 
 ### Reading
 
-    XBEL.open('test/wikipedia.xbel')[:f0].bookmarks.
+    XBEL.open('test/wikipedia.xbel')[:test_1_1].bookmarks.
     map do |bookmark|
       link_to bookmark.title, bookmark.href
     end
@@ -22,7 +27,9 @@ Introduces XBEL decorations for Nokogiri.
 
     xbel = XBEL.new
     xbel.build_folder 'XBEL' do |folder|
-      folder.build_bookmark "boof's xbel", 'http://github.com/boof/xbel'
+      bm = folder.build_bookmark "boof's xbel", 'http://github.com/boof/xbel'
+      # nodes receive IDs and can be accessed via the :[] method
+      bm == xbel[bm.id]
     end
     File.open('my.xbel', 'w') { |file| file << xbel }
 
