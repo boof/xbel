@@ -5,24 +5,25 @@
 
 Gem::Specification.new do |s|
   s.name = %q{xbel}
-  s.version = "0.2.5"
+  s.version = "0.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Florian A\303\237mann"]
-  s.date = %q{2009-11-17}
+  s.authors = ["Florian Aßmann"]
+  s.date = %q{2010-04-15}
   s.description = %q{}
   s.email = %q{florian.assmann@email.de}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.markdown"
+     "README.md"
   ]
   s.files = [
     ".document",
      ".gitignore",
      ".watchr",
      "LICENSE",
-     "README.markdown",
+     "README.md",
      "Rakefile",
+     "TODO.md",
      "VERSION",
      "lib/nokogiri/decorators/xbel.rb",
      "lib/nokogiri/decorators/xbel/alias.rb",
@@ -38,7 +39,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://xbel.monkey-patch.me}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Ruby API for XBEL based on Nokogiri.}
   s.test_files = [
     "test/helper.rb",
