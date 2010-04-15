@@ -49,4 +49,4 @@ _Note: You can use all Nokogiri::XML::Node methods._
 
 ### Copyright
 
-Copyright (c) 2009 Florian Aßmann. See LICENSE for details.
+Copyright (c) 2009-2010 Florian Aßmann. See LICENSE for details.
