@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'date'
 
 require 'nokogiri'
 require 'nokogiri/decorators/xbel'
