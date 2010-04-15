@@ -2,7 +2,7 @@ module Nokogiri::Decorators::XBEL
   module Alias
     extend Forwardable
     def_delegators :entry,
-        :description, :title, :to_s, :id, :added, :bookmark?, :folder?
+        :description, :title, :to_s, :id, :added
 
     # Returns reference to bookmark or folder id.
     def ref

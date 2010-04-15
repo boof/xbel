@@ -56,12 +56,12 @@ context 'XBEL' do
     end
 
     context 'Alias' do
-      setup { topic.root.aliases.first }
-      should('be an alias') { topic.alias? }
-
+      setup { topic.root.aliases }
+      should('be an alias') { topic.all? { |a| a.alias? } }
+      should('not be a bookmark') { !topic.any? { |a| a.bookmark? } }
+      should('not be a folder') { !topic.any? { |a| a.folder? } }
       should('have a reference') do
-        topic.ref and
-        topic.ref == topic.reference
+        topic.all? { |a| a.ref and a.ref == a.reference }
       end
     end
 
