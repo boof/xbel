@@ -1,11 +1,12 @@
 # xbel
 
-Introduces XBEL decorations for Nokogiri.
+Introduces XBEL decorators for Nokogiri.
 
 ## Features
 
  * generates IDs for bookmarks and folders
  * decorates a Nokogiri::XML::Node, all Nokogiri methods are available
+ * Ruby 1.8 and 1.9 compatible
 
 ## Installation
 
@@ -23,6 +24,8 @@ Introduces XBEL decorations for Nokogiri.
       link_to bookmark.title, bookmark.href
     end
 
+_Note: See http://github.com/boof/habel to read *.haml into XBEL..._
+
 ### Writing
 
     xbel = XBEL.new
@@ -39,8 +42,8 @@ _Note: You can use all Nokogiri::XML::Node methods._
  
 1. Fork the project.
 2. Make your feature addition or bug fix.
-3. Add tests for it. This is important so I don't break it in a
-   future version unintentionally.
+3. Add tests for it. This is important so I don't break it in a future version
+   unintentionally.
 4. Commit, do not mess with rakefile, version, or history.
 5. Send me a pull request.
 
