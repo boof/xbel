@@ -35,8 +35,7 @@ module Nokogiri::Decorators::XBEL
       self.modified = Date.today
       self['href'] = value
     end
-    # Returns true.
-    def bookmark?
+    def bookmark? #:nodoc:
       true
     end
 

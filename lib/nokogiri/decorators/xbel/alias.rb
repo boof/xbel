@@ -24,8 +24,7 @@ module Nokogiri::Decorators::XBEL
       self.ref = bookmark_or_folder.id
     end
 
-    # Returns true.
-    def alias?
+    def alias? #:nodoc:
       true
     end
 

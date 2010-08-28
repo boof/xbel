@@ -23,8 +23,7 @@ module Nokogiri::Decorators::XBEL
       xpath './folder'
     end
 
-    # Returns true.
-    def folder?
+    def folder? #:nodoc:
       true
     end
 

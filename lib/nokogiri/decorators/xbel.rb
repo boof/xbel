@@ -90,11 +90,13 @@ module Nokogiri::Decorators::XBEL
     end
   end
 
-  # Returns nil.
+  # Returns true if this node is an alias.
   def alias?; end
-  # Returns nil.
+  # Returns true if this node is a bookmark.
   def bookmark?; end
-  # Returns nil.
+  # Returns true if this node is a folder.
   def folder?; end
+  # Returns true if this node is a separator.
+  def separator?; end
 
 end
